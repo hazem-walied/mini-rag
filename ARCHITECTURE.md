@@ -19,40 +19,47 @@ The mini-rag system follows a **Model-View-Controller (MVC)** architecture patte
 
 ```mermaid
 graph TB
-    subgraph "Client Layer"
+    subgraph ClientLayer[" "]
+        direction TB
         Client[Client Application]
     end
     
-    subgraph "API Layer (FastAPI)"
+    subgraph APILayer["API Layer (FastAPI)"]
+        direction TB
         Router[API Routes]
         BaseRouter[Base Router<br/>/api/v1/]
         DataRouter[Data Router<br/>/api/v1/data]
     end
     
-    subgraph "Controller Layer"
+    subgraph ControllerLayer["Controller Layer"]
+        direction TB
         BaseCtrl[BaseController]
         DataCtrl[DataController]
         ProcessCtrl[ProcessController]
         ProjectCtrl[ProjectController]
     end
     
-    subgraph "Model Layer"
+    subgraph ModelLayer["Model Layer"]
+        direction TB
         BaseModel[BaseDataModel]
         ProjectModel[ProjectModel]
         AssetModel[AssetModel]
         ChunkModel[ChunkModel]
     end
     
-    subgraph "Data Storage"
+    subgraph StorageLayer["Data Storage"]
+        direction LR
         MongoDB[(MongoDB<br/>Database)]
         FileSystem[File System<br/>assets/files/]
     end
     
-    subgraph "External Services"
+    subgraph ExternalLayer["External Services"]
+        direction TB
         LangChain[LangChain<br/>Document Loaders & Splitters]
     end
     
-    subgraph "Configuration"
+    subgraph ConfigLayer["Configuration"]
+        direction TB
         Config[Settings & Config]
     end
     
@@ -60,47 +67,64 @@ graph TB
     Router --> BaseRouter
     Router --> DataRouter
     
-    BaseRouter -->|Welcome| Config
+    BaseRouter -.->|Welcome| Config
     DataRouter -->|Upload| DataCtrl
     DataRouter -->|Process| ProcessCtrl
     
-    DataCtrl --> ProjectCtrl
-    DataCtrl --> BaseCtrl
-    ProcessCtrl --> ProjectCtrl
-    ProcessCtrl --> BaseCtrl
-    ProjectCtrl --> BaseCtrl
+    DataCtrl -.->|inherits| BaseCtrl
+    ProcessCtrl -.->|inherits| BaseCtrl
+    ProjectCtrl -.->|inherits| BaseCtrl
     
-    DataCtrl --> ProjectModel
-    ProcessCtrl --> LangChain
-    ProjectCtrl --> ProjectModel
+    DataCtrl -->|uses| ProjectCtrl
+    ProcessCtrl -->|uses| ProjectCtrl
     
-    ProjectModel --> BaseModel
-    AssetModel --> BaseModel
-    ChunkModel --> BaseModel
+    DataCtrl -->|queries| ProjectModel
+    ProcessCtrl -->|queries| ProjectModel
+    ProcessCtrl -->|queries| AssetModel
+    ProcessCtrl -->|queries| ChunkModel
+    ProjectCtrl -->|queries| ProjectModel
     
-    BaseModel --> MongoDB
-    ProjectModel --> MongoDB
-    AssetModel --> MongoDB
-    ChunkModel --> MongoDB
+    ProjectModel -.->|inherits| BaseModel
+    AssetModel -.->|inherits| BaseModel
+    ChunkModel -.->|inherits| BaseModel
     
-    DataCtrl --> FileSystem
-    ProcessCtrl --> FileSystem
-    ProjectCtrl --> FileSystem
+    BaseModel -->|connects| MongoDB
+    ProjectModel -->|stores| MongoDB
+    AssetModel -->|stores| MongoDB
+    ChunkModel -->|stores| MongoDB
     
-    BaseCtrl --> Config
-    BaseModel --> Config
+    DataCtrl -->|writes| FileSystem
+    ProcessCtrl -->|reads| FileSystem
+    ProjectCtrl -->|manages| FileSystem
     
-    style Client fill:#e1f5ff
-    style Router fill:#fff4e1
-    style DataCtrl fill:#ffe1f5
-    style ProcessCtrl fill:#ffe1f5
-    style ProjectCtrl fill:#ffe1f5
-    style ProjectModel fill:#e1ffe1
-    style AssetModel fill:#e1ffe1
-    style ChunkModel fill:#e1ffe1
-    style MongoDB fill:#ffe1e1
-    style FileSystem fill:#ffe1e1
-    style LangChain fill:#f5e1ff
+    ProcessCtrl -->|uses| LangChain
+    
+    BaseCtrl -.->|reads| Config
+    BaseModel -.->|reads| Config
+    
+    style Client fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style Router fill:#6C7B95,color:#fff,stroke:#4A5568,stroke-width:2px
+    style BaseRouter fill:#6C7B95,color:#fff,stroke:#4A5568,stroke-width:2px
+    style DataRouter fill:#6C7B95,color:#fff,stroke:#4A5568,stroke-width:2px
+    style BaseCtrl fill:#95A5A6,color:#fff,stroke:#7F8C8D,stroke-width:2px
+    style DataCtrl fill:#3498DB,color:#fff,stroke:#2980B9,stroke-width:2px
+    style ProcessCtrl fill:#3498DB,color:#fff,stroke:#2980B9,stroke-width:2px
+    style ProjectCtrl fill:#3498DB,color:#fff,stroke:#2980B9,stroke-width:2px
+    style BaseModel fill:#95A5A6,color:#fff,stroke:#7F8C8D,stroke-width:2px
+    style ProjectModel fill:#27AE60,color:#fff,stroke:#229954,stroke-width:2px
+    style AssetModel fill:#27AE60,color:#fff,stroke:#229954,stroke-width:2px
+    style ChunkModel fill:#27AE60,color:#fff,stroke:#229954,stroke-width:2px
+    style MongoDB fill:#E74C3C,color:#fff,stroke:#C0392B,stroke-width:2px
+    style FileSystem fill:#E67E22,color:#fff,stroke:#D35400,stroke-width:2px
+    style LangChain fill:#9B59B6,color:#fff,stroke:#8E44AD,stroke-width:2px
+    style Config fill:#34495E,color:#fff,stroke:#2C3E50,stroke-width:2px
+    style ClientLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style APILayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style ControllerLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style ModelLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style StorageLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style ExternalLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style ConfigLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
 ```
 
 ### Architecture Components
@@ -381,9 +405,7 @@ sequenceDiagram
 
 ---
 
-## Assumptions
-
-The following assumptions were made while creating this documentation:
+## Important Considerations
 
 1. **Database Connection**: MongoDB connection is established at application startup and stored in `app.db_client` for use across all requests.
 
@@ -410,7 +432,5 @@ The following assumptions were made while creating this documentation:
 - Controllers inherit from `BaseController` which provides common utilities and configuration access.
 - Models inherit from `BaseDataModel` which provides database client access and settings.
 
----
 
-*Last Updated: Based on current codebase structure*
 
