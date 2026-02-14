@@ -118,13 +118,13 @@ graph TB
     style FileSystem fill:#E67E22,color:#fff,stroke:#D35400,stroke-width:2px
     style LangChain fill:#9B59B6,color:#fff,stroke:#8E44AD,stroke-width:2px
     style Config fill:#34495E,color:#fff,stroke:#2C3E50,stroke-width:2px
-    style ClientLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style APILayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style ControllerLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style ModelLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style StorageLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style ExternalLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
-    style ConfigLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    style ClientLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style APILayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style ControllerLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style ModelLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style StorageLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style ExternalLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
+    style ConfigLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#000000
     
     linkStyle 0 stroke:#00FFFF,stroke-width:3px
     linkStyle 1 stroke:#00FFFF,stroke-width:3px
