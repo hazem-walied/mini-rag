@@ -125,6 +125,36 @@ graph TB
     style StorageLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
     style ExternalLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
     style ConfigLayer fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px
+    
+    linkStyle 0 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 1 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 2 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 3 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 4 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 5 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 6 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 7 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 8 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 9 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 10 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 11 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 12 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 13 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 14 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 15 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 16 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 17 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 18 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 19 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 20 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 21 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 22 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 23 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 24 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 25 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 26 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 27 stroke:#FFEB3B,stroke-width:3px
+    linkStyle 28 stroke:#FFEB3B,stroke-width:3px
 ```
 
 ### Architecture Components
